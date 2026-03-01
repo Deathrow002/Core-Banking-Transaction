@@ -29,33 +29,6 @@ Transaction microservice for the Core Banking system. Handles deposits, withdraw
 | POST | `/transactions/transaction` | Transfer funds | ADMIN, MANAGER, USER |
 | GET | `/transactions/GetTransByAccNo?AccNo={uuid}` | Get transactions by account | ADMIN, MANAGER |
 
-## Request Examples
-
-### Deposit
-```json
-POST /transactions/deposit
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-
-{
-  "accountNo": "550e8400-e29b-41d4-a716-446655440000",
-  "amount": 1000.00
-}
-```
-
-### Transfer
-```json
-POST /transactions/transaction
-Authorization: Bearer <jwt_token>
-Content-Type: application/json
-
-{
-  "fromAccountNo": "550e8400-e29b-41d4-a716-446655440000",
-  "toAccountNo": "550e8400-e29b-41d4-a716-446655440001",
-  "amount": 500.00
-}
-```
-
 ## Configuration
 
 Default port: `8083`
