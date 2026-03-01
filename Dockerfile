@@ -1,19 +1,15 @@
 # Build Stage
 FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
 
+RUN apk add --no-cache git
+
 WORKDIR /app
 
-# Copy the parent POM and install it
-COPY ./pom.xml /app/
+# Clone the Transaction service from GitHub
+RUN git clone https://github.com/Deathrow002/Core-Banking-Transaction.git .
 
-# Install all dependencies (including Account)
-RUN mvn clean install -N
-
-# Copy the entire Transaction module (including pom.xml and src/)
-COPY ./Transaction /app/Transaction
-
-# Build the Transaction service (after Account is installed)
-RUN mvn clean package -DskipTests -f Transaction/pom.xml
+# Build the Transaction service
+RUN mvn clean package -DskipTests
 
 # Runtime Stage
 FROM eclipse-temurin:21-jre-jammy
@@ -27,7 +23,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy the built JAR from the builder stage
-COPY --from=builder /app/Transaction/target/Transaction-1.0-SNAPSHOT.jar transaction-service.jar
+COPY --from=builder /app/target/*.jar transaction-service.jar
 
 EXPOSE 8081
 
