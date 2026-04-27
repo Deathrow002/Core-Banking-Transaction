@@ -1,4 +1,4 @@
-package com.transaction.config;
+package com.transaction.config.webflux;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

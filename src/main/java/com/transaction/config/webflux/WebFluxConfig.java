@@ -1,4 +1,4 @@
-package com.transaction.config;
+package com.transaction.config.webflux;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
